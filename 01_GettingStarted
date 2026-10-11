@@ -1,0 +1,52 @@
+# To Install floci
+iwr https://floci.io/install.ps1 | iex
+
+#To start
+floci start
+
+# To set AWS Env varibales
+eval $(floci env)
+# exports AWS_ENDPOINT_URL, AWS_ACCESS_KEY_ID,
+# AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION
+
+# To tells AWS CLI and compatible SDKs to send requests to your local Floci endpoint.
+$env:AWS_ENDPOINT_URL = "http://localhost:4566"
+
+# To verify Floci is responding
+Invoke-RestMethod http://localhost:4566/_floci/health
+
+# Check status
+floci status
+
+# View logs
+floci logs --follow
+
+# Stop the emulator
+floci stop
+
+# Run health diagnostics
+floci doctor
+
+# To see what environment variables Floci recommends
+floci env
+
+# Install AWS CLI on Windows
+winget install --id Amazon.AWSCLI --exact
+
+# to see version
+aws --version
+
+# Configure AWS CLI for Floci
+$env:AWS_ENDPOINT_URL = "http://localhost:4566"
+$env:AWS_ACCESS_KEY_ID = "test"
+$env:AWS_SECRET_ACCESS_KEY = "test"
+$env:AWS_DEFAULT_REGION = "us-east-1"
+
+Task 1: create as s3 bucket
+===========================
+# create s3 bucket
+aws s3 mb s3://my-bucket              /* here "my-bucket" is bucket name */
+# Verify the bucket
+aws s3 ls
+
+
