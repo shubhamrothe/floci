@@ -36,6 +36,12 @@ winget install --id Amazon.AWSCLI --exact
 # to see version
 aws --version
 
+# Check status
+floci status
+
+# View logs
+floci logs --follow
+
 # Configure AWS CLI for Floci
 $env:AWS_ENDPOINT_URL = "http://localhost:4566"
 $env:AWS_ACCESS_KEY_ID = "test"
@@ -50,3 +56,20 @@ aws s3 mb s3://my-bucket              /* here "my-bucket" is bucket name */
 aws s3 ls
 
 
+Task 2: Create a file and upload it in s3 bucket and then download it
+=====================================================================
+
+# create a file 
+echo "Why pay for s3 when floci is free?" > hello-floci.txt
+
+# copy it to s3 bucket
+ aws s3 cp .\hello-floci.txt s3://my-bucket/hello-floci.txt
+
+# Verify the file was uploaded
+aws s3 ls s3://my-bucket/
+
+# Download file under different name
+aws s3 cp s3://my-bucket/hello-floci.txt ./downloaded-hello-floci.txt
+
+# To see content of file
+ Get-content .\hello-floci.txt
